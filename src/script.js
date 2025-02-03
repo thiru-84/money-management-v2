@@ -74,7 +74,7 @@ function addToTable() {
 
     let amount = parseFloat(userInput) || 0;
 
- 
+
     dynamicTableData.innerHTML = `
         <td class="px-6 py-4 serial-number">${serialNumber}</td>
         <td class="px-6 py-4">
@@ -104,7 +104,7 @@ function addToTable() {
 
     dynamicTableBody.appendChild(dynamicTableData);
 
- 
+
     if (selectedRadio === "Income") {
         totalIncome += amount;
         incomeIDs.push(dynamicTableData.id);
@@ -137,7 +137,7 @@ function addToTable() {
         dataToShow.style.display = 'none';
     }
 
- 
+
     dynamicTableData.querySelector('.delete-button').addEventListener('click', function (event) {
         deleteTable(event, amount);
     });
@@ -148,7 +148,7 @@ function addToTable() {
         saveTable(event);
     });
 
- 
+
     refreshSerialNumbers();
 }
 
@@ -157,7 +157,7 @@ function updateTotals() {
     const totalIncomeElement = document.querySelector('.total-income h3');
     const totalExpenseElement = document.querySelector('.total-expense h3');
 
- 
+
     totalIncomeElement.textContent = formatAmount(totalIncome);
     totalExpenseElement.textContent = formatAmount(totalExpense);
 }
@@ -172,7 +172,7 @@ function deleteTable(event, amount) {
     let row = event.target.closest('tr');
     let rowRadio = row.querySelector('.description-text').textContent;
 
-   
+
     if (rowRadio === "Income") {
         totalIncome -= amount;
         let index = incomeIDs.indexOf(row.id);
@@ -187,7 +187,7 @@ function deleteTable(event, amount) {
         }
     }
 
-    
+
     allEntries = allEntries.filter(entry => entry.id !== row.id);
 
     row.remove();
@@ -213,14 +213,14 @@ function filterEntries(type) {
     let dynamicTableBody = document.querySelector('.money-flow-table');
     dynamicTableBody.innerHTML = '';
 
-    
+    let serialNumber = 1;  // Initialize serial number
+
     filteredEntries.forEach(entry => {
         let dynamicTableData = document.createElement('tr');
         dynamicTableData.classList.add('bg-white', 'border-b', 'border-gray-300');
-        dynamicTableData.id = entry.id;
 
         dynamicTableData.innerHTML = `
-            <td class="px-6 py-4 serial-number">${entry.id}</td>
+            <td class="px-6 py-4 serial-number">${serialNumber}</td>  <!-- Use serialNumber here -->
             <td class="px-6 py-4">
                 <span class="description-text default-mode">${entry.amount}</span>
                 <input type="text" class="description-input-second p-2 border border-gray-300 rounded-md edit-mode hidden" 
@@ -228,19 +228,11 @@ function filterEntries(type) {
             </td>
 
             <td class="px-6 py-4">
-                <span class="state-text default-mode">${entry.type}</span>
-                     <div class="state-dropdown-container hidden edit-mode">
-                        <article class="state-dropdown inline-block relative">
-                             <select class="state-select select-dropdown p-2 border border-gray-300 rounded-md">
-                                <option>Revenue</option>
-                                <option>Expense</option>
-                            </select>
-                        </article>
-                    </div>
-            </td>
+            <span class="description-text default-mode">${selectedRadio === '' ? '-' : selectedRadio}</span>
+            <input type="text" disabled class="description-input-second p-2  rounded-md edit-mode hidden" 
+                value="${selectedRadio}">
+        </td>
 
-            
-            
             <td class="px-6 py-4">
                 <div class="flex space-x-2 default-mode">
                     <button class="edit-button text-blue-500 cursor-pointer">Edit</button>
@@ -264,11 +256,13 @@ function filterEntries(type) {
         dynamicTableData.querySelector('.save-button').addEventListener('click', function (event) {
             saveTable(event);
         });
+
+        serialNumber++;  
     });
 
-   
     recalculateTotals();
 }
+
 
 
 function recalculateTotals() {
@@ -296,12 +290,12 @@ function resetForm() {
 
 // -----------------------------------------------------Save Functionality-----------------------------------------------------
 function saveTable(event) {
-    let row = event.target.closest('tr');  
+    let row = event.target.closest('tr');
 
 
     let defaultModes = row.querySelectorAll('.default-mode');
     let editModes = row.querySelectorAll('.edit-mode');
-    
+
 
     let descriptionInput = row.querySelector('.description-input-second');
 
@@ -323,7 +317,7 @@ function saveTable(event) {
 
     descriptionText.textContent = descriptionInput.value;
 
- 
+
     defaultModes.forEach(el => el.classList.remove('hidden'));
     editModes.forEach(el => el.classList.add('hidden'));
 
@@ -331,24 +325,18 @@ function saveTable(event) {
     let incomeRadio = document.getElementById('radio-income');
     let expenseRadio = document.getElementById('radio-expense');
 
-    let amount = parseFloat(descriptionInput.value) || 0;  
+    let amount = parseFloat(descriptionInput.value) || 0;
 
-    
+
     if (incomeRadio.checked) {
-        totalIncome = amount; 
+        totalIncome = amount;
     } else if (expenseRadio.checked) {
-        totalExpense = amount;  
+        totalExpense = amount;
     }
 
 
     updateTotals();
 }
-
-
-
-
-
-
 
 // -----------------------------------------------------Edit and Delete Functionality-----------------------------------------------------
 function editTable(event) {
@@ -378,10 +366,10 @@ document.addEventListener('click', function (event) {
         let row = target.closest('tr');
         let defaultModes = row.querySelectorAll('.default-mode');
         let editModes = row.querySelectorAll('.edit-mode');
-        
+
         let descriptionInput = row.querySelector('.description-input-second');
         let stateSelect = row.querySelector('.state-select');
-        
+
         row.querySelector('.description-text').textContent = descriptionInput.value;
         row.querySelector('.state-text').textContent = stateSelect.value;
 
