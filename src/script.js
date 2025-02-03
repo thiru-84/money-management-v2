@@ -148,7 +148,7 @@ function addToTable() {
         saveTable(event);
     });
 
-
+    document.querySelector('#user-input').value = "";
     refreshSerialNumbers();
 }
 
@@ -259,8 +259,10 @@ function filterEntries(type) {
 
         serialNumber++;  
     });
-
+    
     recalculateTotals();
+
+    
 }
 
 
@@ -273,20 +275,20 @@ function recalculateTotals() {
 }
 
 
-function resetForm() {
-    const inputField = document.querySelector('.user-input');
-    if (inputField) {
-        inputField.value = "";
-    }
+// function resetForm() {
+//     const inputField = document.querySelector('#user-input');
+//     if (inputField) {
+//         inputField.value = "";
+//     }
 
-    const defaultRadio = document.querySelector('input[name="list-radio"]:first-child');
-    if (defaultRadio) {
-        defaultRadio.checked = true;
-    }
+//     const defaultRadio = document.querySelector('input[name="list-radio"]:first-child');
+//     if (defaultRadio) {
+//         defaultRadio.checked = true;
+//     }
 
-    userInput = "";
-    selectedRadio = "Income";
-}
+//     userInput = "";
+//     selectedRadio = "Income";
+// }
 
 // -----------------------------------------------------Save Functionality-----------------------------------------------------
 function saveTable(event) {
