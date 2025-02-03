@@ -1,5 +1,5 @@
 // -----------------------------------------------------Date-----------------------------------------------------
-// date and time
+
 const date = new Date();
 const dateFormat = {
     day: '2-digit',
@@ -17,13 +17,13 @@ document.getElementById("current-date").innerHTML = date.toLocaleString('en-UK',
 let userInput = "";
 let selectedRadio = "Income";
 
-// Listen for user input and update the variables
+
 document.querySelector('.user-input').addEventListener('input', function (event) {
     userInput = event.target.value.trim();
 
 });
 
-// Function to get the selected radio button
+
 function findSelectedRadio() {
     const selectedRadioElement = document.querySelector('input[name="list-radio"]:checked');
     if (selectedRadioElement) {
@@ -36,7 +36,7 @@ function findSelectedRadio() {
     }
 }
 
-// Add event listener to the radio buttons
+
 const radios = document.querySelectorAll('input[name="list-radio"]');
 radios.forEach(radio => {
     radio.addEventListener('change', findSelectedRadio);
@@ -51,9 +51,9 @@ let incomeIDs = [];
 let expenseIDs = [];
 let allEntries = [];
 
-// Function to add data to the table
+
 function addToTable() {
-    // Ensure amount is provided
+
     if (!userInput.trim()) {
         return;
     }
@@ -71,10 +71,10 @@ function addToTable() {
     dynamicTableData.classList.add('bg-white', 'border-b', 'border-gray-300');
     dynamicTableData.id = `table-data-${serialNumber}`;
 
-    // Parse the amount properly (ensure it's a number)
+
     let amount = parseFloat(userInput) || 0;
 
-    // Create the new row content
+ 
     dynamicTableData.innerHTML = `
         <td class="px-6 py-4 serial-number">${serialNumber}</td>
         <td class="px-6 py-4">
@@ -104,7 +104,7 @@ function addToTable() {
 
     dynamicTableBody.appendChild(dynamicTableData);
 
-    // Add amount to the correct total (Income or Expense)
+ 
     if (selectedRadio === "Income") {
         totalIncome += amount;
         incomeIDs.push(dynamicTableData.id);
@@ -115,17 +115,17 @@ function addToTable() {
         console.log('Expense IDs:', expenseIDs);
     }
 
-    // Store the entry
+
     allEntries.push({
         id: dynamicTableData.id,
         amount: amount,
         type: selectedRadio
     });
 
-    // Update the totals in the UI
+
     updateTotals();
 
-    // Update "No Data" message visibility
+
     let checkForDataInTable = document.querySelectorAll('.money-flow-table tr').length;
     let noDatatoshow = document.querySelector('.money-flow-table-no-data');
     let dataToShow = document.querySelector('.money-flow-table-with-data');
@@ -137,7 +137,7 @@ function addToTable() {
         dataToShow.style.display = 'none';
     }
 
-    // Add event listeners for the new row
+ 
     dynamicTableData.querySelector('.delete-button').addEventListener('click', function (event) {
         deleteTable(event, amount);
     });
@@ -148,31 +148,31 @@ function addToTable() {
         saveTable(event);
     });
 
-    // Refresh Serial Numbers after adding a new row
+ 
     refreshSerialNumbers();
 }
 
-// Function to update totals
+
 function updateTotals() {
     const totalIncomeElement = document.querySelector('.total-income h3');
     const totalExpenseElement = document.querySelector('.total-expense h3');
 
-    // Display the total as a real count (whole number or decimal if needed)
+ 
     totalIncomeElement.textContent = formatAmount(totalIncome);
     totalExpenseElement.textContent = formatAmount(totalExpense);
 }
 
-// Function to format the amount to show the proper value (e.g., 0.00 or just the count)
+
 function formatAmount(amount) {
     return amount.toFixed(2);
 }
 
-// Function to handle row deletion
+
 function deleteTable(event, amount) {
     let row = event.target.closest('tr');
     let rowRadio = row.querySelector('.description-text').textContent;
 
-    // Remove amount from the totals
+   
     if (rowRadio === "Income") {
         totalIncome -= amount;
         let index = incomeIDs.indexOf(row.id);
@@ -187,7 +187,7 @@ function deleteTable(event, amount) {
         }
     }
 
-    // Remove entry from allEntries
+    
     allEntries = allEntries.filter(entry => entry.id !== row.id);
 
     row.remove();
@@ -195,7 +195,7 @@ function deleteTable(event, amount) {
     refreshSerialNumbers();
 }
 
-// Function to refresh serial numbers after any row change
+
 function refreshSerialNumbers() {
     let rows = document.querySelectorAll('.money-flow-table tr');
     rows.forEach((row, index) => {
@@ -206,14 +206,14 @@ function refreshSerialNumbers() {
     });
 }
 
-// Function to filter entries based on the selected filter
+
 function filterEntries(type) {
     let filteredEntries = allEntries.filter(entry => type === 'All' || entry.type === type);
 
     let dynamicTableBody = document.querySelector('.money-flow-table');
     dynamicTableBody.innerHTML = '';
 
-    // Re-add the filtered rows to the table
+    
     filteredEntries.forEach(entry => {
         let dynamicTableData = document.createElement('tr');
         dynamicTableData.classList.add('bg-white', 'border-b', 'border-gray-300');
@@ -266,11 +266,11 @@ function filterEntries(type) {
         });
     });
 
-    // Recalculate totals after filtering
+   
     recalculateTotals();
 }
 
-// Function to recalculate totals after filtering
+
 function recalculateTotals() {
     totalIncome = allEntries.filter(entry => entry.type === "Income").reduce((acc, entry) => acc + entry.amount, 0);
     totalExpense = allEntries.filter(entry => entry.type === "Expense").reduce((acc, entry) => acc + entry.amount, 0);
@@ -278,7 +278,7 @@ function recalculateTotals() {
     updateTotals();
 }
 
-// Reset the form values
+
 function resetForm() {
     const inputField = document.querySelector('.user-input');
     if (inputField) {
@@ -295,75 +295,62 @@ function resetForm() {
 }
 
 // -----------------------------------------------------Save Functionality-----------------------------------------------------
-document.addEventListener('click', function (event) {
-    let target = event.target;
+function saveTable(event) {
+    let row = event.target.closest('tr');  
 
-    if (target.classList.contains('save-button')) {
-        let row = target.closest('tr');
-        let defaultModes = row.querySelectorAll('.default-mode');
-        let editModes = row.querySelectorAll('.edit-mode');
 
-        defaultModes.forEach(el => el.classList.remove('hidden'));
-        editModes.forEach(el => el.classList.add('hidden'));
+    let defaultModes = row.querySelectorAll('.default-mode');
+    let editModes = row.querySelectorAll('.edit-mode');
+    
+
+    let descriptionInput = row.querySelector('.description-input-second');
+
+
+    if (!descriptionInput) {
+        console.error('Description input not found!');
+        return;
     }
 
-});
+
+    let descriptionText = row.querySelector('.description-text');
+
+
+    if (!descriptionText) {
+        console.error('Description text element not found!');
+        return;
+    }
+
+
+    descriptionText.textContent = descriptionInput.value;
+
+ 
+    defaultModes.forEach(el => el.classList.remove('hidden'));
+    editModes.forEach(el => el.classList.add('hidden'));
+
+
+    let incomeRadio = document.getElementById('radio-income');
+    let expenseRadio = document.getElementById('radio-expense');
+
+    let amount = parseFloat(descriptionInput.value) || 0;  
+
+    
+    if (incomeRadio.checked) {
+        totalIncome = amount; 
+    } else if (expenseRadio.checked) {
+        totalExpense = amount;  
+    }
+
+
+    updateTotals();
+}
+
+
+
+
+
 
 
 // -----------------------------------------------------Edit and Delete Functionality-----------------------------------------------------
-
-// Function to delete a row from the table
-// document.addEventListener('click', function (event) {
-//     let target = event.target;
-
-//     if (target.classList.contains('edit-button')) {
-//         let row = target.closest('tr');
-//         let defaultModes = row.querySelectorAll('.default-mode');
-//         let editModes = row.querySelectorAll('.edit-mode');
-
-//         // Hide default mode and show edit mode
-//         defaultModes.forEach(el => el.classList.add('hidden'));
-//         editModes.forEach(el => el.classList.remove('hidden'));
-//     }
-
-//     if (target.classList.contains('delete-button')) {
-//         target.closest('tr').remove();
-//         updateTableVisibility();
-//     }
-
-//     if (target.classList.contains('save-button')) {
-//         let row = target.closest('tr');
-//         let defaultModes = row.querySelectorAll('.default-mode');
-//         let editModes = row.querySelectorAll('.edit-mode');
-
-//         // Save logic for the data and hide the input/select and show the default content
-//         // For example, updating the values based on the input fields:
-//         let descriptionInput = row.querySelector('.description-input-second');
-//         let stateSelect = row.querySelector('.state-select');
-        
-//         // Update the values
-//         row.querySelector('.description-text').textContent = descriptionInput.value;
-//         row.querySelector('.state-text').textContent = stateSelect.value;
-
-//         // Hide edit mode and show default mode
-//         defaultModes.forEach(el => el.classList.remove('hidden'));
-//         editModes.forEach(el => el.classList.add('hidden'));
-//     }
-// });
-
-// function updateTableVisibility() {
-//     let tableBody = document.querySelector('.money-flow-table tbody');
-//     let noDataMessage = document.querySelector('.money-flow-table-no-data');
-//     let dataTable = document.querySelector('.money-flow-table-with-data');
-
-//     if (tableBody.children.length === 0) {
-//         noDataMessage.style.display = 'flex';
-//         dataTable.style.display = 'none';
-//     } else {
-//         noDataMessage.style.display = 'none';
-//         dataTable.style.display = 'block';
-//     }
-// }
 function editTable(event) {
     let row = event.target.closest('tr');
     let defaultModes = row.querySelectorAll('.default-mode');
@@ -381,24 +368,6 @@ document.addEventListener('click', function (event) {
 
 document.addEventListener('click', function (event) {
     let target = event.target;
-
-    
-
-    // if (target.classList.contains('edit-button')) {
-    //     let row = target.closest('tr');
-    //     let defaultModes = row.querySelectorAll('.default-mode');
-    //     let editModes = row.querySelectorAll('.edit-mode');
-        
-    //     // Hide default mode and show edit mode
-    //     defaultModes.forEach(el => el.classList.add('hidden'));
-    //     editModes.forEach(el => el.classList.remove('hidden'));
-
-    //     // Ensure the dropdown within edit mode is visible
-    //     let stateDropdownContainer = row.querySelector('.state-dropdown-container');
-    //     if (stateDropdownContainer) {
-    //         stateDropdownContainer.classList.remove('hidden');
-    //     }
-    // }
 
     if (target.classList.contains('delete-button')) {
         target.closest('tr').remove();
@@ -420,3 +389,5 @@ document.addEventListener('click', function (event) {
         editModes.forEach(el => el.classList.add('hidden'));
     }
 });
+
+
