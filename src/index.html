@@ -21,8 +21,6 @@
                             class="text-black underline font-meidum" target="_blank">Thiru</a></p>
                 </div>
 
-
-
             </div>
             <div class="flex flex-col justify-between h-full">
                 <div>
@@ -82,12 +80,11 @@
                             <p class="font-normal text-gray-500">Total Income</p>
                         </div>
                         <div class="border border-gray-200"></div>
-                        <div class="flex flex-col justify-center align-center items-center expense">
+                        <div class="flex flex-col justify-center align-center items-center total-expense">
                             <h3>0</h3>
                             <p class="font-normal text-gray-500">Total Expenses</p>
                         </div>
-                        
-                        
+
                     </div>
                 </div>
 
@@ -104,7 +101,7 @@
             <!-- table area-->
             <div class="relative overflow-x-auto money-flow-table-container">
 
-                <!-- <div class="money-flow-table-no-data flex flex-col justify-center items-center align-center h-100 hidden">
+                <div class="money-flow-table-no-data flex flex-col justify-center items-center align-center h-100 hidden">
                     <div class="h-8 w-8 text-gray-500 flex justify-center items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                             class="size-5.5 text-rose-600">
@@ -115,7 +112,7 @@
                     <p id="current-date"
                         class="text-[13px] text-gray-500 font-normal text-center leading-[16px] pt-2 opacity-80">Start
                         managing <br>your money!</p>
-                </div> -->
+                </div>
 
 
                 <!-- table -->
@@ -126,31 +123,33 @@
 
                             <div class="flex justify-between text-black px-6 py-3   bg-slate-200">
                                 <h4 class="text-sm font-bold text-black">Transaction Flow</h4>
-                        
+
                                 <div class="flex justify-between items-center gap-4">
                                     <div class="flex items-center">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio"
-                                            checked
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-500">All</label>
+                                        <input onclick="filterEntries('All')" id="show-all-flow" type="radio" value=""
+                                            name="default-radio" checked>
+                                        <label for="show-all-flow"
+                                            class="ms-2 text-sm font-medium text-gray-500">All</label>
                                     </div>
-                        
+
                                     <div class="flex items-center">
-                                        <input id="default-radio-2" type="radio" value="" name="default-radio"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-500">Revenue</label>
+                                        <input onclick="filterEntries('Income')" id="show-revenue-flow" type="radio"
+                                            value="" name="default-radio">
+                                        <label for="show-revenue-flow"
+                                            class="ms-2 text-sm font-medium text-gray-500">Revenue</label>
                                     </div>
-                        
+
                                     <div class="flex items-center">
-                                        <input id="default-radio-3" type="radio" value="" name="default-radio"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-3" class="ms-2 text-sm font-medium text-gray-500">Expense</label>
+                                        <input onclick="filterEntries('Expense')" id="show-expense-flow" type="radio"
+                                            value="" name="default-radio">
+                                        <label for="show-expense-flow"
+                                            class="ms-2 text-sm font-medium text-gray-500">Expense</label>
                                     </div>
                                 </div>
                             </div>
-                        
+
                         </thead>
-                        
+
                         <thead class="text-xs text-gray-900 uppercase border-y border-gray-300 bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3">S.No</th>
