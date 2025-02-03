@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Work+Sans:wght@100..900&display=swap');
+
+:root {
+    --font-work-sans: 'Work Sans', sans-serif;
+    --font-poppins: 'Poppins', sans-serif;
+
+    /* font weight */
+    
+}
+
+body{
+    font-family: var(--font-work-sans);
+}
+
+/* Hide the default dropdown icon in <select> */
+.select-dropdown {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+}
+
+
+.money-flow-table-no-data{
+    height: 100vh;
+    display: flex;
+}
+
+/* .money-flow-table-with-data {
+    display: none;
+} */
+

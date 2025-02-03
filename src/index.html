@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+</head>
+
+<body>
+    <section class="md:flex md:gap-10">
+        <main
+            class="font-[Work Sans] font-bold lg:w-2/6 lg:py-8 lg:pl-8 lg:pr-0 p-2 border-b border-gray-300 lg:border-b-0 ">
+            <!-- date and time -->
+            <div class="flex justify-between">
+
+                <p id="current-date" class="text-sm text-gray-500 font-normal"></p>
+
+                <div class="lg:block hidden">
+                    <p class="text-sm text-gray-500 font-normal">© Created by <a href="https://github.com/thiru-84"
+                            class="text-black underline font-meidum" target="_blank">Thiru</a></p>
+                </div>
+
+
+
+            </div>
+            <div class="flex flex-col justify-between h-full">
+                <div>
+                    <!-- heading and message -->
+                    <div class="lg:mt-14 mt-12">
+                        <h2 class="text-[24px] leading-[22px] lg:hidden ">Track & Manage Your Money Smarter</h2>
+                        <h2 class="text-[36px] leading-[35px] hidden lg:block">Track & Manage Your Money Smarter
+                        </h2>
+                        <p class="font-normal opacity-50 pt-2 lg:pt-3 text-sm tracking-[1px]">Better money management
+                            for
+                            better
+                            savings.
+                        </p>
+                    </div>
+
+                    <!-- input field -->
+                    <div class="w-100 lg:pt-8 pt-6 w-full">
+
+                        <input type="number" id="user-input" placeholder="Enter Amount"
+                            class=" user-input mb-2 block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-white text-base font-normal focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 active:border-blue-600">
+                        <div>
+                            <ul
+                                class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg sm:flex">
+                                <li class="w-full border-b border-gray-300 sm:border-b-0 sm:border-r">
+                                    <div class="flex items-center ps-3">
+                                        <input id="radio-income" type="radio" name="list-radio" checked
+                                            class="w-4 h-4 text-white border-2 border-black bg-black focus:ring-black">
+                                        <label for="radio-income"
+                                            class="w-full py-3 ms-2 text-sm font-medium text-gray-900 cursor-pointer">Income</label>
+                                    </div>
+                                </li>
+
+                                <li class="w-full">
+                                    <div class="flex items-center ps-3">
+                                        <input id="radio-expense" type="radio" name="list-radio"
+                                            class="w-4 h-4 text-white border-2 border-black bg-black focus:ring-black">
+                                        <label for="radio-expense"
+                                            class="w-full py-3 ms-2 text-sm font-medium text-gray-900 cursor-pointer">Expense</label>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <button type="button" onclick="addToTable()"
+                            class="w-full mt-6 text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 dark:bg-black dark:hover:bg-gray-900 dark:border-gray-700">Add</button>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class=" border-y border-gray-300 py-8 px-8">
+                    <div class="flex gap-12 justify-center">
+                        <div class="flex flex-col justify-center align-center items-center total-income">
+                            <h3>0</h3>
+                            <p class="font-normal text-gray-500">Total Income</p>
+                        </div>
+                        <div class="border border-gray-200"></div>
+                        <div class="flex flex-col justify-center align-center items-center expense">
+                            <h3>0</h3>
+                            <p class="font-normal text-gray-500">Total Expenses</p>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </main>
+
+        <!-- right section -->
+        <section class="w-full h-screen bg-[#F7F7F7] border-l border-gray-300 mt-14 lg:mt-0">
+            <!-- Show this if No Data in the Right Section -->
+
+
+            <!-- Show this if More than One Data in the Right Section -->
+            <!-- table area-->
+            <div class="relative overflow-x-auto money-flow-table-container">
+
+                <!-- <div class="money-flow-table-no-data flex flex-col justify-center items-center align-center h-100 hidden">
+                    <div class="h-8 w-8 text-gray-500 flex justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="size-5.5 text-rose-600">
+                            <path
+                                d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
+                        </svg>
+                    </div>
+                    <p id="current-date"
+                        class="text-[13px] text-gray-500 font-normal text-center leading-[16px] pt-2 opacity-80">Start
+                        managing <br>your money!</p>
+                </div> -->
+
+
+                <!-- table -->
+                <div class="money-flow-table-with-data">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+
+                        <thead class="text-xs border-b border-gray-300 ">
+
+                            <div class="flex justify-between text-black px-6 py-3   bg-slate-200">
+                                <h4 class="text-sm font-bold text-black">Transaction Flow</h4>
+                        
+                                <div class="flex justify-between items-center gap-4">
+                                    <div class="flex items-center">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio"
+                                            checked
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-500">All</label>
+                                    </div>
+                        
+                                    <div class="flex items-center">
+                                        <input id="default-radio-2" type="radio" value="" name="default-radio"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-500">Revenue</label>
+                                    </div>
+                        
+                                    <div class="flex items-center">
+                                        <input id="default-radio-3" type="radio" value="" name="default-radio"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-3" class="ms-2 text-sm font-medium text-gray-500">Expense</label>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </thead>
+                        
+                        <thead class="text-xs text-gray-900 uppercase border-y border-gray-300 bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">S.No</th>
+                                <th scope="col" class="px-6 py-3">Amount</th>
+                                <th scope="col" class="px-6 py-3">Type</th>
+                                <th scope="col" class="px-6 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="money-flow-table">
+                            <!-- Dynamically added rows will go here -->
+                            <!-- <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <span class="amount-text default-mode">${userEnteredAmount}</span>
+                                <input type="text"
+                                    class="amount-input p-2 border border-gray-300 rounded-md edit-mode hidden"
+                                    value="${userEnteredAmount}">
+                            </th>
+
+                            <td class="px-6 py-4">
+                                <span class="description-text default-mode">${userEnteredDescription === '' ? '-' :
+                                    userEnteredDescription}</span>
+                                <input type="text"
+                                    class="description-input-second p-2 border border-gray-300 rounded-md edit-mode hidden"
+                                    value="${userEnteredDescription}">
+                            </td>
+
+                            
+
+                            <td class="px-6 py-4">
+                                <div class="flex space-x-2 default-mode">
+                                    <button class="edit-button text-blue-500 cursor-pointer">Edit</button>
+                                    <span>|</span>
+                                    <button class="delete-button text-red-500 cursor-pointer">Delete</button>
+                                </div>
+                                <div class="hidden edit-mode">
+                                    <button class="save-button text-green-700 cursor-pointer">Save</button>
+                                </div>
+                            </td> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+        </section>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
